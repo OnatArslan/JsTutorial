@@ -115,3 +115,4 @@ console.log(message);
 console.log(`I would like a cup of ${number > 10 ? `tea`:`wine`}`)
 
 console.log(`I would like a cup of ${14 < 20 ? `tea`:`coffe`}`)
+console.log(`this is so good`);
