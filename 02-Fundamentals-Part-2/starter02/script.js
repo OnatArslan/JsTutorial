@@ -362,7 +362,7 @@ const nameee = `OnatArslan`;
 for(let i = nameee.length - 1; i >= 0; i--){
     console.log(nameee[i]);
 }
-
+ 
 // second way
 for(let i = 1; i <= nameee.length; i++){
     console.log(nameee[nameee.length - i]);
