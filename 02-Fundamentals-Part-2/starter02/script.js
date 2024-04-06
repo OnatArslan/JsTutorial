@@ -192,15 +192,7 @@ const calculateTip = totalBill =>{
     let tip = 0;
     if (totalBill <= 0) {
         console.log(`Total bill can not be smaller than 0 $`);
-    } else {
-        if(totalBill >= 50 && totalBill <= 300){
-            tip = totalBill * (15/100);
-            return tip;
-        }else{
-            tip = totalBill * (1/5);
-            return tip;
-        }
-    }
+    } return totalBill >= 50 && totalBill <= 300 ? totalBill * 0.15 : totalBill * 0.2;  // Ternary operator
 }
 
 const bills = [125, 555, 44];
@@ -213,6 +205,5 @@ const total = [];
 for(let i = 0; i < bills.length ; i++){
     total.push(bills[i] + tips[i]);
 }
-
 console.log(tips);
 console.log(total);
