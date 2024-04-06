@@ -207,3 +207,52 @@ for(let i = 0; i < bills.length ; i++){
 }
 console.log(tips);
 console.log(total);
+
+
+// Objects ------------------------------------------------------------------------------------------------------------------------
+
+const onat = {
+    name : `Onat`,
+    surname : `Arslan`,
+    birthYear : 2002,
+    age : 2024 - 2002,
+    city : `Mugla`,
+    job : `Backend Developer`,
+    fullName: function() {
+         return `${this.name} ${this.surname}`
+    },
+    friends: [`Rugi`, `Onder`, `Mahmut`]
+};
+
+// // This is another way
+// console.log(onat[`name`]);
+// console.log(onat[`surname`]);
+// console.log(onat[`age`]);
+// console.log(onat[`job`]);
+
+
+// // This is good way for reach properties because of the function properties like fullName()
+// console.log(onat.name);
+// console.log(onat.surname);
+// console.log(onat.age);
+// console.log(onat.job);
+// console.log(onat.fullName());  fullname is not property this is a function just like python properties
+
+// const question = prompt(`What do you want the know about Onat? Chose between name, surname, age, job, city?`)
+// console.log(onat.question); This line of code won't work
+
+// console.log(onat[question]);  This will work fine
+
+
+onat.country = `Turkey`;
+onat[`twitter`] = `@onatArs`;
+
+console.log(onat);
+
+
+// . notation and [] notation usage you must use . notation if [] not neccesary
+console.log(`${onat.name} has ${onat[`friends`].length} friends, and his best friend is ${onat.friends[0]}`)
+
+for (const key in onat) {
+    console.log(onat[key]);
+}
