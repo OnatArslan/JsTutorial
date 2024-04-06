@@ -116,27 +116,103 @@ for(let i = 0; i < cars.length; i++){
     }
 }
 
-const friends = ['Steve', 'Onat', 'Rugi', 'Mahmut'];
+// const friends = ['Steve', 'Onat', 'Rugi', 'Mahmut'];
 
-console.log(friends[0]);
-console.log(friends[1]);
-console.log(friends[2]);
-console.log(friends[3]);
+// console.log(friends[0]);
+// console.log(friends[1]);
+// console.log(friends[2]);
+// console.log(friends[3]);
 
-console.log(friends.length); // This will write number of elements in friends array
-console.log(friends[friends.length - 1]); // This will return last element of array
+// console.log(friends.length); // This will write number of elements in friends array
+// console.log(friends[friends.length - 1]); // This will return last element of array
 
-friends[0] = 'OnderKolpa';
-for (let index = 1; index <= friends.length; index++) {
-    const element = friends[friends.length - index]; // This code will be reverse the array elements and log them to console
-    console.log(element);
+// friends[0] = 'OnderKolpa';
+// for (let index = 1; index <= friends.length; index++) {
+//     const element = friends[friends.length - index]; // This code will be reverse the array elements and log them to console
+//     console.log(element);
+// }
+
+// console.log(friends.slice(1, 3));  // This will slice array but important thing is that, 3. index is not log to console, [1, 3) this work like this 3 not included
+
+// // friends = [`bob`, `alice`] we can not do this only change with functions or indexing
+
+
+// const onat = [`Onat`, `Arslan`, 2001, 2024 - 2001 >= 18 ? `adult` : `child`, friends] // This ternary operator will give adult result becase of the age
+// console.log(onat);
+
+
+const calcAge = birthYearr => {
+    console.log(2024 - birthYearr);
+    return 2024 - birthYearr
 }
 
-console.log(friends.slice(1, 3));  // This will slice array but important thing is that, 3. index is not log to console, [1, 3) this work like this 3 not included
+const years = [1990, 1967, 2002, 2010, 2018];
 
-// friends = [`bob`, `alice`] we can not do this only change with functions or indexing
+// map function like python
+years.map(element =>{
+    calcAge(element);
+})
+
+// element will be array elements end for each element this block of code will be executed
+years.forEach(element =>{
+    calcAge(element);
+})
+
+// Array methods
 
 
-const onat = [`Onat`, `Arslan`, 2001, 2024 - 2001 >= 18 ? `adult` : `child`] // This ternary operator will give adult result becase of the age
-console.log(onat);
+const friends = ['Steve', 'Onat', 'Rugi', 'Mahmut'];
 
+// push() method will add element end of the array
+friends.push('Ahmet')// ['Steve', 'Onat', 'Rugi', 'Mahmut', 'Ahmet']
+
+// unshift() method will ad element beginning of the array
+friends.unshift(`Caner`) // ['Caner', 'Steve', 'Onat', 'Rugi', 'Mahmut', 'Ahmet']
+
+// pop() method remove last element of array
+friends.pop() // ['Caner', 'Steve', 'Onat', 'Rugi', 'Mahmut']
+
+// shift() method will remove first element of the array
+friends.shift()
+
+// indexOf() method will return index of the given element
+console.log(friends.indexOf(`Onat`)); // Onat is 1. index of array
+console.log(friends.indexOf(`memo`)); // Because of memo is not element of friends array it will return -1
+
+// includes() method will control element in array if element in array it will return true else false
+console.log(friends.includes('Onat')); // true
+console.log(friends.includes('Selim')); // false
+
+console.log(friends); 
+
+
+// Challenge 6 ------------------------------------------------------------
+
+const calculateTip = totalBill =>{
+    let tip = 0;
+    if (totalBill <= 0) {
+        console.log(`Total bill can not be smaller than 0 $`);
+    } else {
+        if(totalBill >= 50 && totalBill <= 300){
+            tip = totalBill * (15/100);
+            return tip;
+        }else{
+            tip = totalBill * (1/5);
+            return tip;
+        }
+    }
+}
+
+const bills = [125, 555, 44];
+const tips = [];
+bills.forEach(ele =>{
+    tips.push(calculateTip(ele))
+})
+
+const total = [];
+for(let i = 0; i < bills.length ; i++){
+    total.push(bills[i] + tips[i]);
+}
+
+console.log(tips);
+console.log(total);
