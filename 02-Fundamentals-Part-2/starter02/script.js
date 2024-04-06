@@ -256,3 +256,128 @@ console.log(`${onat.name} has ${onat[`friends`].length} friends, and his best fr
 for (const key in onat) {
     console.log(onat[key]);
 }
+
+// Object methods ------------------------------------------------------------------------------------
+
+const rugi = {
+    name: `Rugi`,
+    surname: `Cataroglu`,
+    getFullName: function(){
+        this.fullName = `${this.name} ${this.surname}`; // we attached the fullName variables for multi use
+        return `${this.name} ${this.surname}`;
+    },
+
+    birthYear: 2004,
+    calcAge: function(){
+        this.age = 2024 - this.birthYear;
+        return 2024 - this.birthYear;
+    },
+
+    job: `student`,
+    hasDriverLicanse : true,
+
+    summerize: function(){
+        this.personToStr = `Name:${this.name}, surname: ${this.surname}, age: ${this.birthYear}, job: ${this.job}, has driver licanse: ${this.hasDriverLicanse}`
+    }
+};
+
+// This is object[`methodName`](parameters) notation
+console.log(rugi[`getFullName`]());
+
+// This is methot call with . notation
+console.log(rugi.getFullName());
+console.log(rugi.fullName);
+rugi.summerize()
+console.log(rugi.calcAge());
+console.log(rugi.age);
+console.log(rugi.personToStr);
+
+
+const mark = {
+    fullName: `Mark Miller`,
+    mass: 78,
+    height:169,
+    calculateBMI: function(){
+        this.BMI = this.mass / (this.height ** 2) ;
+        return this.mass * (this.height ** 2) ;
+    }
+}
+
+const john = {
+    fullName: `John Smith`,
+    mass: 92,
+    height:195,
+    calculateBMI: function(){
+        this.BMI = this.mass / (this.height ** 2) ;
+        return this.mass * (this.height ** 2) ;
+    }
+}
+
+mark.calculateBMI()
+john.calculateBMI()
+console.log(mark.BMI);
+console.log(john.BMI);
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// for loop for iterating numbers array
+for(let num = 0; num < numbers.length; num++){
+    console.log(numbers[num]);
+}
+
+// Basic for loop
+for (let i = 1; i < 8; i++) {
+    console.log(`Lifting weights repetition ${i} times`);
+}
+
+// For of loop
+for(index of numbers){
+    if(index === 7){
+        continue
+    }
+    console.log(index);
+}
+
+// forEach function
+numbers.forEach(element =>{
+    console.log(element += 100);
+})
+
+// for (const key in rugi) {
+//     if (Object.hasOwnProperty.call(rugi, key)) {
+//         console.log(rugi[key]);
+        
+//     }
+// }
+
+const typeArrray = []
+for(let i = 0; i < numbers.length; i++){
+    typeArrray.push(numbers[i]);
+    typeArrray.unshift(numbers[i]);  // [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    
+}
+console.log(typeArrray);  
+
+const nameee = `OnatArslan`;
+// Rewrite string 1. way
+for(let i = nameee.length - 1; i >= 0; i--){
+    console.log(nameee[i]);
+}
+
+// second way
+for(let i = 1; i <= nameee.length; i++){
+    console.log(nameee[nameee.length - i]);
+}
+
+// Challange 7 ------------------------------------------------------------------------------------------------------------------------------------
+const challangeBills = [22, 295, 176, 440, 37, 105, 10, 1100, 86,52];
+const challangeTips = [];
+const challangeTotals = [];
+
+calculateChallngeTips = bill =>{
+    return bill >= 50 && bill <= 300 ? bill*0.15 : bill*0.2;
+}
+
+for(let i = 0; i < challangeBills.length; i++){
+    challangeTips.unshift(calculateChallngeTips(challangeBills[i]))
+}
+console.log(challangeTips);
