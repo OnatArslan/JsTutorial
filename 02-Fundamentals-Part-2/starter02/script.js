@@ -105,3 +105,38 @@ const scoreKoalas2 = calcAverage(200, 34, 200);
 // Check winner and log to console
 console.log(checkWinner(scoreDolphins1, scoreKoalas1));
 console.log(checkWinner(scoreDolphins2, scoreKoalas2));
+
+// Arrays ------------------------------------------------------------------------------------
+
+// For loop with 2dimensional array
+const cars = [[`volvo`, `fiat`, `mercedes`],[`bmw`, `toyota`]];
+for(let i = 0; i < cars.length; i++){
+    for(let j = 0; j < cars[i].length; j++){
+        console.log(cars[i][j]);
+    }
+}
+
+const friends = ['Steve', 'Onat', 'Rugi', 'Mahmut'];
+
+console.log(friends[0]);
+console.log(friends[1]);
+console.log(friends[2]);
+console.log(friends[3]);
+
+console.log(friends.length); // This will write number of elements in friends array
+console.log(friends[friends.length - 1]); // This will return last element of array
+
+friends[0] = 'OnderKolpa';
+for (let index = 1; index <= friends.length; index++) {
+    const element = friends[friends.length - index]; // This code will be reverse the array elements and log them to console
+    console.log(element);
+}
+
+console.log(friends.slice(1, 3));  // This will slice array but important thing is that, 3. index is not log to console, [1, 3) this work like this 3 not included
+
+// friends = [`bob`, `alice`] we can not do this only change with functions or indexing
+
+
+const onat = [`Onat`, `Arslan`, 2001, 2024 - 2001 >= 18 ? `adult` : `child`] // This ternary operator will give adult result becase of the age
+console.log(onat);
+
