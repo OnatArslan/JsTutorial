@@ -384,3 +384,15 @@ for (let i = 0; i < challangeBills.length; i++) {
   challangeTips.unshift(calculateChallngeTips(challangeBills[i]));
 }
 console.log(challangeTips);
+
+const nameArrray = [`adem`, `canan`, `onat`, `ahmet`];
+
+nameArrray.forEach((element) => {
+  console.log(element);
+});
+
+for (let i of nameArrray) {
+  if (i === `ahmet`) {
+    document.body.style.background = `tomato`; // not document.body.style.backgroundColor only background
+  }
+}
