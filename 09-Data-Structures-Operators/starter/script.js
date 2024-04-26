@@ -93,6 +93,9 @@ const restaurant2 = {
   orderDelivery: function (obj) {
     console.log(obj);
   },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is your delicius pasta with ${ing1}, ${ing2}, ${ing3}`);
+  },
 };
 restaurant2.orderDelivery({
   time: `22:30`,
@@ -128,3 +131,48 @@ const {
 } = openingHours;
 
 console.log(friOpen, friClose);
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// Spread operator (...)
+
+const arrayy = [7, 8, 9];
+// Bad typing
+const badArray = [1, 2, arrayy[0], arrayy[1], arrayy[2]];
+// Good typing
+const goodArray = [1, 2, ...arrayy];
+
+console.log(...goodArray); // (...) operator will expand the iterable(array, string)
+
+const newMenu = [...restaurant2.mainMenu, `Gnocci`];
+console.log(...newMenu);
+
+// Coppy array with (...)
+const copyMainMenu = [...restaurant.mainMenu];
+console.log(...copyMainMenu);
+
+// Join two arrays
+const allMenu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(...allMenu);
+
+// Iterables are arrays, string, maps, sets. NOT object
+const myName = `Onat Arslan`;
+const newArray = [...myName]; // (...) operators work on iterables
+
+const ingredients = [
+  prompt(`Lets make pasta!
+Ingredient 1?`),
+  prompt(`Lets make pasta!
+Ingredient 2?`),
+  prompt(`Lets make pasta!
+Ingredient 3?`),
+];
+console.log(...ingredients);
+
+restaurant2.orderPasta(...ingredients); // This function take 3 args but we can spread the array and give one arg
+
+// Objects
+const newRestourant = {
+  ...restaurant2,
+  founder: `Gustavo Fring`,
+  city: `Paris`,
+};
