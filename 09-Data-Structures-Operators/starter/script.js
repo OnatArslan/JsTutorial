@@ -89,7 +89,42 @@ const restaurant2 = {
   order: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
+
+  orderDelivery: function (obj) {
+    console.log(obj);
+  },
 };
+restaurant2.orderDelivery({
+  time: `22:30`,
+  adress: `Via del Sole 21`,
+  mainIndex: 2,
+  starterIndex: 2,
+});
 
 const { name, openingHours, categories } = restaurant;
 console.log(name, openingHours, categories);
+
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+console.log(restaurantName, hours, tags);
+
+// Setting a default data
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters);
+
+// Mutating values
+let an = 111;
+let bn = 900;
+
+const obj = { an: 23, bn: 14 };
+({ an, bn } = obj);
+console.log(an, bn);
+
+const {
+  fri: { open: friOpen, close: friClose },
+} = openingHours;
+
+console.log(friOpen, friClose);
