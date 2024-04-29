@@ -308,3 +308,113 @@ console.log(hoursMap);
 for (const [key, value] of rest) {
   console.log(key, value);
 }
+
+// Work with String ---------------------------------------------------------------------------------------------------
+
+const airline = `TAP Air Portugal`;
+const plane = `A320`;
+
+console.log(plane[1]); // It will give us 1. index
+console.log(`Boing`[2]); // it will give 2. index = i
+console.log(plane.length);
+
+console.log(airline.indexOf(`Ai`)); // It will give 4 start index of Ai
+console.log(airline.lastIndexOf(`o`)); // it will give last o's index
+
+console.log(airline.slice(1, 6)); // It will return 1 index (included) to 6 index (not inculuded)
+
+console.log(airline.slice(2)); // It will return index 2 to end
+
+console.log(airline.slice(airline.lastIndexOf(`A`), airline.length));
+
+// B and E are middle seats
+const checkMiddleSeat = function (seat) {
+  const s = seat[seat.length - 1];
+  if (s === `B` || s === `E`) {
+    console.log(`You are in middle seat`);
+  } else {
+    console.log(`You are not in middle seat`);
+  }
+};
+
+checkMiddleSeat(`11B`);
+checkMiddleSeat(`22C`);
+checkMiddleSeat(`22E`);
+checkMiddleSeat(`22F`);
+
+// When we call a function on string js engine does below
+console.log(new String(`Onat`));
+
+// Work with String 2 ---------------------------------------------------------------------------------------------------
+
+const mynameis = `Onat Arslan`;
+console.log(mynameis.toUpperCase()); // This will retunr ONAT ARSLAN
+console.log(mynameis.toLowerCase()); // This will retunr onat arslan
+
+const yournameis = `ruGi CatPat`;
+// If we want tho conver this to Rugi Catpat
+
+const nameCorrect = `${yournameis[0].toUpperCase()}${yournameis
+  .slice(1)
+  .toLowerCase()}`;
+console.log(nameCorrect);
+
+// Comparing emails
+const email = `hello@onat.com`;
+const loginEmail = `   Hello@onat.Com`;
+// Conver loginEmail to correct email
+const correctMail = loginEmail.trim().toLowerCase();
+console.log(correctMail);
+
+// replacing
+const priceDolla = `222,25$`;
+const pricePaund = priceDolla.replace(`$`, `£`);
+console.log(pricePaund);
+
+const announcment = `All pasangers come to boarding door 23. Boarding door 23`;
+
+const correctAnnouncment = announcment.replace(/door/g, `gate`); // This is a regular expression and / /g means global
+
+console.log(correctAnnouncment);
+
+// Return booleans methods
+const newPlane = `Boeng22AA`;
+console.log(newPlane.includes(`22`)); // It will return true
+console.log(newPlane.startsWith(`B`)); // It will return true
+console.log(newPlane.endsWith(`Aa`)); // It will return false
+
+// Split method is best method on a string
+
+const spltStr = `onat,ruggg,rugrugi,conconi,tototo,makakka`;
+
+const spltArray = spltStr.split(`,`);
+console.log(spltArray);
+
+const onik = `Onat Arslan`;
+
+// split() function usege with array destructring
+const [onikFirstName, onikLastName] = onik.split(` `);
+console.log(onikFirstName);
+console.log(onikLastName);
+
+// Join method will retunr string and join() method is array method
+const fullNameArray = [`Onat`, `Arslan`];
+const fullNameStr = fullNameArray.join(`----`);
+console.log(fullNameStr);
+
+// Padding
+const message = `Go to gate 23!`;
+console.log(message.padStart(25, `$`));
+console.log(message.padEnd(25, `O`));
+
+const maskCreditCard = number => {
+  const stringNumber = String(number);
+  const lastFourChar = stringNumber.slice(-4);
+  return lastFourChar.padStart(stringNumber.length, `*`);
+};
+
+console.log(maskCreditCard(`22222222222222222229898`));
+
+// Repeat method
+const message2 = `Bad weather... All departures delayed... `;
+console.log(message2.repeat(5)); // It will repeat 5 times message 2
