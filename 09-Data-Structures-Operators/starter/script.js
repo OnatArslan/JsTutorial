@@ -418,3 +418,7 @@ console.log(maskCreditCard(`22222222222222222229898`));
 // Repeat method
 const message2 = `Bad weather... All departures delayed... `;
 console.log(message2.repeat(5)); // It will repeat 5 times message 2
+
+// concar method will ad string to other
+const message3 = `xyz`.concat(message2);
+console.log(message3);
