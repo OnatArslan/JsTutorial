@@ -158,17 +158,17 @@ console.log(...allMenu);
 const myName = `Onat Arslan`;
 const newArray = [...myName]; // (...) operators work on iterables
 
-const ingredients = [
-  prompt(`Lets make pasta!
-Ingredient 1?`),
-  prompt(`Lets make pasta!
-Ingredient 2?`),
-  prompt(`Lets make pasta!
-Ingredient 3?`),
-];
-console.log(...ingredients);
+// const ingredients = [
+//   prompt(`Lets make pasta!
+// Ingredient 1?`),
+//   prompt(`Lets make pasta!
+// Ingredient 2?`),
+//   prompt(`Lets make pasta!
+// Ingredient 3?`),
+// ];
+// console.log(...ingredients);
 
-restaurant2.orderPasta(...ingredients); // This function take 3 args but we can spread the array and give one arg
+// restaurant2.orderPasta(...ingredients); // This function take 3 args but we can spread the array and give one arg
 
 // Objects
 const newRestourant = {
@@ -176,3 +176,135 @@ const newRestourant = {
   founder: `Gustavo Fring`,
   city: `Paris`,
 };
+
+// Spread operator (...)
+const spreadArr = [1, 2, 3, 4, 5];
+
+const [l, f, ...others] = spreadArr;
+console.log(others);
+
+// Rest pattern, just like python *args
+const add = function (...numbers) {
+  let sum = 0;
+  numbers.forEach(el => {
+    sum += el;
+  });
+  return sum;
+};
+
+const total = add(1, 2, 3, 4, 143);
+console.log(total);
+
+// we can use add() function like that
+const arrayMine = [1, 1222, 6767, 999];
+const totalSum = add(...arrayMine); // We use (...) operator and unpack all elements in arrayMine and give to rest pattern of sum() function
+console.log(totalSum);
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// Short circuit && or ||
+
+// They can use ANY data type, can return any datatype
+
+console.log(3 || `Jonas`); // It will return 3 which truthy number
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// nullish coalescing operator (??)
+
+// It will return false only null and undefined variables
+// restaurant.guessCount = 0;
+const manyGuest = restaurant.guessCount ?? 10;
+console.log(manyGuest);
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+const rest1 = {
+  name: `Capri`,
+  numGuest: 20,
+};
+const rest2 = {
+  name: `La pizza`,
+  owner: `Giovoni Rosso`,
+};
+
+// rest1.numGuest = rest1.numGuest || 10;
+// rest2.numGuest = rest2.numGuest || 10;
+
+rest1.numGuest ??= 10; // If null or undefined assign 10 to that variable
+rest2.numGuest ??= 10;
+
+console.log(rest1);
+console.log(rest2);
+
+// -------------------------------------------------------------
+// for of loop
+
+const rugiArray = [1, 2, 3, 4, 5, 6, 3, 3, 2, 1, 1, 2, 3, 4, 1];
+
+// This is defoult for of loop
+for (let element of rugiArray) {
+  console.log(element);
+}
+console.log(`-----------------------------------`);
+// But what if we want index like for(let i = 0) loop
+// rugiArray.entries will give us [index, element] and if we give element[0] we get index, else if we give element[1] we get element
+// Array destructring
+for (let [index, element] of rugiArray.entries()) {
+  console.log(index, element);
+}
+
+// optional chaning (.?)
+const restaurant3 = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  },
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+};
+
+console.log(restaurant3.openingHours.fri.open); // It will give an error because of openingHours.mon do not exist
+// We need two if blocks to avoid this error but there is a smarter move
+
+console.log(restaurant3.openingHours.mon?.open); // If openingHours.mon exist give but not exist do not give error just give undefined
+
+// for of loop with Objects
+
+for (const [day, { open, close }] of Object.entries(openingHours)) {
+  console.log(`In ${day} we are open at ${open} and close at ${close}`);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Maps
+
+const rest = new Map();
+rest.set(`name`, `Classico Itelliano`);
+rest.set(1, `Firenze, Italy`);
+rest.set(2, `Lisbon, Portugal`);
+rest.set(`countries`, [`Turkey`, `England`, `Portugal`, `Itali`, `Paraguay`]);
+console.log(rest.get(`name`)); // It is same as python dict opject
+
+// Convert objects to map
+const hoursMap = new Map(Object.entries(openingHours));
+console.log(hoursMap);
+
+// Iteration of map
+for (const [key, value] of rest) {
+  console.log(key, value);
+}
