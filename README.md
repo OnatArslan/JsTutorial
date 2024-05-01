@@ -1,6 +1,3 @@
-Sure, here's a draft for your GitHub README:
-
----
 
 # Welcome to the Section-Based JavaScript Tutorial
 
