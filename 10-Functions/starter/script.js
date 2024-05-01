@@ -296,3 +296,27 @@ poll.displayResults.call({ answers: [4, 6, 3] });
 // BUT
 console.log(isGood); // This wont be cause an error because of declaring with var is always global!!!!!!
 // Do not use var no matter what
+
+// Function closures ------------------------------ -------------------------------- ----------------------------------- -------------------------------
+
+const secureBooking = function () {
+  let passangerCount = 0;
+
+  return function () {
+    passangerCount++;
+    console.log(`Current passanger count is : ${passangerCount}`);
+  };
+};
+// This is realy hard to explain but I will try :)
+// We are declare secureBooking function and this is Parenth function and inside this function we declare passanger count
+// This function declare variable passangerCount and return another function(child) which increase passangerCount by 1
+// When we assign booker to child function, child can access passengerCount and increase that by 1
+// How this can be possible
+// CLOSURES is exactly this mean, child function can remember all variables belong to his birthplace(Parent function)
+// Summary when function call another function(child func) child can remember variables which declare in his birthplace(parenth function)
+
+const booker = secureBooking();
+
+// [...Array(5)].forEach(el => {
+//   booker();                     ==> This is good way to call function more than one
+// });
