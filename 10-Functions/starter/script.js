@@ -207,3 +207,92 @@ const chalFunctionReturnOther = function (rate) {
 
 const portugalTaxFunction = chalFunctionReturnOther(0.23);
 portugalTaxFunction(2000);
+
+// Challange 2
+console.log(
+  `---------------------------------------------------------------------`
+);
+const poll = {
+  question: `What is your favorite programing language ?`,
+  options: [`0 : JavaScript`, `1 : Python`, `2 : Rust`, `3 : C++`],
+
+  answers: new Array(4).fill(0), // This will generates [0, 0, 0, 0]
+  displayResults(type = `array`) {
+    if (type === `string`) {
+      console.log(this.answers.join(`, `));
+    } else if (type === `array`) {
+      console.log(this.answers);
+    } else {
+      console.log(`You can only write 'string' or 'array'`);
+    }
+  },
+  registerNewAnswer() {
+    const pNumber = Number(
+      prompt(
+        `What is your favorite programing language ?\n0 : JavaScript\n1 : Python\n2 : Rust\n3 : C++\n(Write a option number)`
+      )
+    );
+    switch (pNumber) {
+      case 0:
+        this.answers[0] += 1;
+        break;
+      case 1:
+        this.answers[1] += 1;
+        break;
+      case 2:
+        this.answers[2] += 1;
+        break;
+      case 3:
+        this.answers[3] += 1;
+        break;
+      default:
+        alert(
+          `Given number must be 0 or 1 or 2 or 3, ${pNumber} is not legit `
+        );
+        break;
+    }
+    const type = prompt(
+      `How do you want your result type ?\n string or array ?\n(Type 'string' or 'array')`
+    );
+    switch (type) {
+      case `string`:
+        this.displayResults(`string`);
+        break;
+      case `array`:
+        this.displayResults();
+        break;
+      default:
+        alert(`Only string and array are legit ${type} is not legit`);
+        break;
+    }
+  },
+};
+
+const poolEl = document.querySelector(`.poll`);
+poolEl.addEventListener(`click`, poll.registerNewAnswer.bind(poll));
+
+poll.displayResults.call({ answers: [4, 6, 3] });
+
+// Immediately Invoked Function Expressions
+// When we not give a name to function and wrap with () after run it with () end of it this function will created and called but not saved to memory
+(function () {
+  console.log(`this will never run again`);
+})();
+
+// arrow functions can be done like that
+(() => {
+  console.log(`this will also never run again`);
+  const isPrivate = 23;
+})();
+// console.log(isPrivate); This will get an error because of the scope(isPrivate is local variable not global)
+
+{
+  const isLegal = false;
+  var isGood = true;
+  let isBad = false;
+}
+// console.log(isLegal) This will cause an error because of const is local scope
+// console.log(isBad) Also this will cause an error because of let is local scope
+// BUT
+console.log(isGood); // This wont be cause an error because of declaring with var is always global!!!!!!
+// Do not use var no matter what
