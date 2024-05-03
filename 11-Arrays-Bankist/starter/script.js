@@ -90,6 +90,53 @@ console.log(newArr.at(-1)); // This one give last element with more elegant way 
 
 const myName = `Onat`;
 console.log(myName.at(-1)); // This give us last el t
+
+// ---------------------------------------- FOREACHHHH -----------------------
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// This is loop array with for of loop, index,element syntax
+for (const [index, element] of movements.entries()) {
+  if (element > 0) {
+    console.log(`You deposited ${element}--- index = ${index}`);
+  } else {
+    console.log(`You withdrew ${element}--- index = ${index}`);
+  }
+}
+console.log(`----------------------FOREACH---------------------`);
+// This is loop array with forEach method
+// first parameter is element
+// second element is index
+// third element is array itself
+// el i arr pattern is best
+// THERE IS NOT BREAK OR CONTINUE STATEMENT IN FOREACH BECAUSE OF FOREACH IS NOT LOOP BUT FUNCTION
+movements.forEach((element, index, array) => {
+  if (element > 0) {
+    console.log(`You deposited ${element}--- index = ${index}`);
+    // console.log(array); This will write to consol  [200, 450, -400, 3000, -650, -130, 70, 1300]
+  } else {
+    console.log(`You withdrew ${element}--- index = ${index}`);
+  }
+});
+
+// ------------------------------------------- FOREACH WITH MAP AND SETS -------------------------------------------
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach(function (value, key, map) {
+  console.log(`key is = ${key} and value is = ${value}`);
+  // console.log(map); This will write the console whole map
+});
+
+// Set
+const currenciesUnique = new Set([`USD`, `GBP`, `USD`, `EUR`, `EUR`]);
+
+currenciesUnique.forEach(function (value, _, set) {
+  console.log(`${value} and ${value}`);
+  // console.log(set); This is write whole set
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // BANKIST APP
@@ -150,54 +197,3 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-
-///////////////////////////////////////////////// -------------------------------------------
-
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-// This is loop array with for of loop, index,element syntax
-for (const [index, element] of movements.entries()) {
-  if (element > 0) {
-    console.log(`You deposited ${element}--- index = ${index}`);
-  } else {
-    console.log(`You withdrew ${element}--- index = ${index}`);
-  }
-}
-console.log(`----------------------FOREACH---------------------`);
-// This is loop array with forEach method
-// first parameter is element
-// second element is index
-// third element is array itself
-// el i arr pattern is best
-// THERE IS NOT BREAK OR CONTINUE STATEMENT IN FOREACH BECAUSE OF FOREACH IS NOT LOOP BUT FUNCTION
-movements.forEach((element, index, array) => {
-  if (element > 0) {
-    console.log(`You deposited ${element}--- index = ${index}`);
-    // console.log(array); This will write to consol  [200, 450, -400, 3000, -650, -130, 70, 1300]
-  } else {
-    console.log(`You withdrew ${element}--- index = ${index}`);
-  }
-});
-
-// ------------------------------------------- FOREACH WITH MAP AND SETS -------------------------------------------
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
-currencies.forEach(function (value, key, map) {
-  console.log(`key is = ${key} and value is = ${value}`);
-  // console.log(map); This will write the console whole map
-});
-
-// Set
-const currenciesUnique = new Set([`USD`, `GBP`, `USD`, `EUR`, `EUR`]);
-
-currenciesUnique.forEach(function (value, _, set) {
-  console.log(`${value} and ${value}`);
-  // console.log(set); This is write whole set
-});
