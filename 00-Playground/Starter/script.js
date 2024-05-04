@@ -163,3 +163,26 @@ console.log(car1); // This will log to console null because the are not any defi
 // ==> default value is now 18 but user give 48 48 will assign to variable
 const usersAgee = null ?? 18;
 console.log(usersAgee);
+
+// I explain OR and ?? operator diff in 3 lines of code
+let height = 0;
+console.log(height || 130); // This line of code log 130 because (0, ``, false, undefined, null) are falsy and height is now 0
+
+console.log(height ?? 130); // This line of code log 0 because height is not undefined or null
+
+// --------------------------------                       ------------------------------------------------------------------
+// -------------------------------- LOOPS (WHILE AND FOR) ------------------------------------------------------------------
+// --------------------------------                       ------------------------------------------------------------------
+
+// lets create our range function with loop
+// start to end with jump value, end not included
+const range = function (start, end, jump = 1) {
+  const arr = [];
+  for (let i = start; i < end; i += jump) {
+    arr.push(i);
+  }
+  return arr;
+};
+
+const arr = range(1, 13, 5);
+console.log(arr);
