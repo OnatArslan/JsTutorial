@@ -136,6 +136,100 @@ currenciesUnique.forEach(function (value, _, set) {
   console.log(`${value} and ${value}`);
   // console.log(set); This is write whole set
 });
+console.log(`-----------------------`);
+// MAP METHOD map()
+const euroToUsd = 1.1;
+const movementsUSD = movements.map((mov, index) => {
+  return mov * euroToUsd;
+});
+console.log(movements);
+console.log(movementsUSD);
+
+movements.forEach((element, index, arr) => {
+  console.log(`${element} is located at index ${index}`);
+});
+
+// filter() METHOD
+const deposits = movements.filter((el) => {
+  return el > 0;
+});
+console.log(deposits);
+
+// reduce() method SNOWBALL
+// accumulator -> SNOWBALL
+// reduce(function(acc, cur, i, arr){}, firstValueOfAccumulator)
+console.log(movements);
+const balance = movements.reduce(function (acc, cur, i, arr) {
+  console.log(`accumulator is ${acc}`);
+  return acc + cur;
+}, 0);
+console.log(balance);
+
+// Get the maximum value with reduce()
+// reduce((accumulator, current, index, arr), defoultAccValue)
+const maxMovement = movements.reduce((accumulator, current, index, arr) => {
+  if (accumulator > current) {
+    return accumulator;
+  } else {
+    return current;
+  }
+}, movements[0]); // defoultAcc value is first element of array
+console.log(maxMovement);
+
+// Dog challange -----------------------------------------------------------------------------------------------------
+const dogData1 = [5, 2, 4, 1, 15, 8, 3];
+const dogData2 = [16, 6, 10, 5, 6, 1, 4];
+// Calculate Human age function
+const calculateHumanAge = function name(dogData) {
+  const humanData = dogData.map((data) => {
+    if (data <= 2) {
+      return data * 2;
+    } else {
+      return data * 4 + 16;
+    }
+  });
+  return humanData;
+};
+// Variables of humanData arrays
+const humanData1 = calculateHumanAge(dogData1);
+const humanData2 = calculateHumanAge(dogData2);
+// Extract Smaller than 18 years function
+const extractSmaller18 = function (dogData) {
+  const newData = dogData.filter(function (element) {
+    return element >= 18;
+  });
+  return newData;
+};
+
+// Variables of extracted datas
+const extractedData1 = extractSmaller18(humanData1);
+const extractedData2 = extractSmaller18(humanData2);
+
+// Calculate avarage age of dogs
+const calculateAvarageAgeOfAdultDogs = (extractedData) => {
+  const avarage =
+    extractedData.reduce((acc, cur, index, arr) => {
+      return acc + cur;
+    }, 0) / extractedData.length;
+  return avarage;
+};
+// Avarage age of adult dogs
+const avarageAge1 = calculateAvarageAgeOfAdultDogs(extractedData1);
+const avarageAge2 = calculateAvarageAgeOfAdultDogs(extractedData2);
+
+// Last test
+console.log(avarageAge1);
+console.log(avarageAge2);
+// ----------------------------------------- DOG CHALANGE END HERE ----------------------------------------------
+
+// ------------------------------METHOD CHANING ---------------------------------------------------
+
+const totalDepositsUSD = movements
+  .filter((mov) => mov > 0)
+  .map((mov) => mov * 1.2)
+  .reduce((accumulator, current) => accumulator + current, 0);
+console.log(movements);
+console.log(totalDepositsUSD);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -172,6 +266,28 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
+// find() METHOD --------------------------------------------
+// find() method returns first element of given condition
+
+const elementLess = movements.find((value, index, arr) => {
+  return value < 0;
+});
+console.log(movements);
+console.log(elementLess);
+// find() method can search objects based on the objects properties
+const account = accounts.find((acc) => {
+  return acc.owner === `Jessica Davis`;
+});
+// we can do same thing with for of loop
+let account5 = null;
+for (let acc of accounts) {
+  if (acc.owner === `Sarah Smith`) {
+    account5 = acc;
+  }
+}
+console.log(account5);
+console.log(account);
+
 // Elements -----------------------------------------------------------------------------
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
@@ -197,3 +313,102 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+
+// Display Movements function ---------------------------------------------------------
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = ``; // First we get rid of html content
+  movements.forEach(function (mov, index) {
+    const type = mov > 0 ? `deposit` : `withdrawal`;
+    const html = `
+        <div class="movements__row">
+          <div class="movements__type movements__type--${type}">${
+      // we set the old html to our design
+      index + 1
+    } ${type}</div>
+          <div class="movements__value">${mov}€</div>
+        </div>
+    `;
+    containerMovements.insertAdjacentHTML(`afterbegin`, html); // Then add html object to container with insertAdjacentHTML function
+  });
+};
+
+// Create username function --------------------------------------------------------------
+const createUsernames = function (accounts) {
+  accounts.forEach((acc) => {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(` `)
+      .map((word) => {
+        return word[0];
+      })
+      .join(``);
+  });
+};
+createUsernames(accounts); // username should be stw
+console.log(accounts);
+
+// Balance Calculator Function --------------------------------------------------------------
+// const calculateBalance = function (accounts) {
+//   accounts.forEach((acc) => {
+//     acc.balance = acc.movements.reduce((accumulator, current, i, arr) => {
+//       return accumulator + current;
+//     });
+//   });
+// };
+
+const calcDisplayBalance = (movements) => {
+  const balance = movements.reduce((accumulator, current) => {
+    return accumulator + current;
+  }, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+
+// Calculate and Display Summary method
+const calcDisplaySummary = function (account) {
+  const incomes = account.movements
+    .filter((mov) => mov > 0)
+    .reduce((accumulator, current) => accumulator + current);
+  labelSumIn.textContent = `${incomes}€`;
+  const outcomes = account.movements
+    .filter((mov) => mov < 0)
+    .reduce((accumulator, current) => accumulator + current);
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`;
+  const interest = account.movements
+    .filter((mov) => mov > 0)
+    .map((deposit) => (deposit * account.interestRate) / 100)
+    .filter((int, i, arr) => {
+      return int >= 1;
+    })
+    .reduce((accumulator, current) => accumulator + current);
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+// LOGIN FUNCTIONALITY
+let currentAccount;
+// Event Handlers
+btnLogin.addEventListener(`click`, function (e) {
+  // Prevent form from submitting
+  e.preventDefault();
+  currentAccount = accounts.find(
+    (acc) => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and message
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split(` `)[0]
+    }`;
+    containerApp.style.opacity = 100;
+    // Clear input fields
+    inputLoginUsername.value = ``;
+    inputLoginPin.value = ``;
+    inputLoginPin.blur();
+    // Display movements
+    displayMovements(currentAccount.movements);
+    // Display balance
+    calcDisplayBalance(currentAccount.movements);
+    // Display summary
+    calcDisplaySummary(currentAccount);
+    console.log(`LOGIN`);
+  }
+});
