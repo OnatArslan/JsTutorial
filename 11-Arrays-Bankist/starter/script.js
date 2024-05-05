@@ -345,7 +345,6 @@ const createUsernames = function (accounts) {
   });
 };
 createUsernames(accounts); // username should be stw
-console.log(accounts);
 
 // Balance Calculator Function --------------------------------------------------------------
 // const calculateBalance = function (accounts) {
@@ -355,12 +354,17 @@ console.log(accounts);
 //     });
 //   });
 // };
+const updateUI = function (acc) {
+  displayMovements(acc.movements);
+  calcDisplayBalance(acc);
+  calcDisplaySummary(acc);
+};
 
-const calcDisplayBalance = (movements) => {
-  const balance = movements.reduce((accumulator, current) => {
+const calcDisplayBalance = (account) => {
+  account.balance = account.movements.reduce((accumulator, current) => {
     return accumulator + current;
   }, 0);
-  labelBalance.textContent = `${balance} EUR`;
+  labelBalance.textContent = `${account.balance} EUR`;
 };
 
 // Calculate and Display Summary method
@@ -399,16 +403,32 @@ btnLogin.addEventListener(`click`, function (e) {
       currentAccount.owner.split(` `)[0]
     }`;
     containerApp.style.opacity = 100;
+    inputLoginPin.blur();
     // Clear input fields
     inputLoginUsername.value = ``;
     inputLoginPin.value = ``;
-    inputLoginPin.blur();
-    // Display movements
-    displayMovements(currentAccount.movements);
-    // Display balance
-    calcDisplayBalance(currentAccount.movements);
-    // Display summary
-    calcDisplaySummary(currentAccount);
+
+    updateUI(currentAccount);
     console.log(`LOGIN`);
+  }
+});
+
+// Transfer event handler
+btnTransfer.addEventListener(`click`, function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const targetUser = accounts.find(
+    (acc) => acc.username === inputTransferTo.value
+  );
+  // Add negative mov to currentUser and add positive mov to targetUser
+  if (
+    amount > 0 &&
+    targetUser &&
+    currentAccount.balance >= amount &&
+    targetUser?.username !== currentAccount.username
+  ) {
+    currentAccount.movements.push(-amount);
+    targetUser.movements.push(amount);
+    updateUI(currentAccount);
   }
 });
