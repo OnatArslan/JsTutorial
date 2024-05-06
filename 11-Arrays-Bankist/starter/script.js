@@ -288,6 +288,8 @@ for (let acc of accounts) {
 console.log(account5);
 console.log(account);
 
+// findIndex() method
+
 // Elements -----------------------------------------------------------------------------
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
@@ -430,5 +432,24 @@ btnTransfer.addEventListener(`click`, function (e) {
     currentAccount.movements.push(-amount);
     targetUser.movements.push(amount);
     updateUI(currentAccount);
+  }
+});
+
+// Close button eventHandler
+btnClose.addEventListener(`click`, (e) => {
+  e.preventDefault();
+  // delete account
+  if (
+    currentAccount.username === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    const index = accounts.findIndex((acc) => {
+      return acc.username === currentAccount.username;
+    });
+    // Hide UI
+    accounts.splice(index, 1);
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = `Log in to get started
+    `;
   }
 });
