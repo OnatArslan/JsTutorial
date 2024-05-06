@@ -289,6 +289,64 @@ console.log(account5);
 console.log(account);
 
 // findIndex() method
+const indexOfJonas = accounts.findIndex((acc) => {
+  return acc.owner === `Jonas Schmedtmann`;
+});
+const jonas = accounts[indexOfJonas];
+console.log(jonas);
+
+// Some()method return true if any value pass the test
+// Check is there any deposit bigger than 300 if yes returns true
+const anyDeposits = movements.some((mov) => {
+  return mov > 300;
+});
+console.log(anyDeposits);
+
+// every() method return true if all the elements pass the test
+// if every element of movements array bigger than -10000 returns true
+const isEveryMovementBiggerThan = movements.every((mov) => {
+  return mov > -10000;
+});
+console.log(isEveryMovementBiggerThan);
+
+// if every element's type is Number then return true
+const isEveryMovementIsNumber = movements.every((mov) => {
+  return typeof mov === 'number';
+});
+console.log(typeof 12); // number
+console.log(isEveryMovementIsNumber);
+
+// flat() and flatMap() method
+// flat() method remove nested array
+// if there are 3 deep nested we must use flat(2)
+const arrrr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arrrr.flat()); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+// flat function
+const accountsMovements = accounts.map((acc) => {
+  return acc.movements; //   [Array(8), Array(8), Array(8), Array(5)] this won't help us but
+});
+console.log(accountsMovements);
+const accountMovementsSingleArray = accountsMovements.flat();
+console.log(accountMovementsSingleArray);
+
+const overalBalance = accountMovementsSingleArray.reduce(
+  (accu, el, index, arr) => {
+    return accu + el;
+  },
+  0
+);
+console.log(overalBalance);
+
+// flatMap() function is map method but return flatted value
+const overalBalance2 = accounts
+  .flatMap((acc) => {
+    return acc.movements;
+  })
+  .reduce((accumulator, current, index, array) => {
+    return accumulator + current;
+  }, 0);
+console.log(overalBalance);
 
 // Elements -----------------------------------------------------------------------------
 const labelWelcome = document.querySelector('.welcome');
@@ -446,10 +504,36 @@ btnClose.addEventListener(`click`, (e) => {
     const index = accounts.findIndex((acc) => {
       return acc.username === currentAccount.username;
     });
-    // Hide UI
     accounts.splice(index, 1);
+    // change UI
     containerApp.style.opacity = 0;
-    labelWelcome.textContent = `Log in to get started
-    `;
+    labelWelcome.textContent = `Log in to get started`;
+    inputCloseUsername.value = inputClosePin.value = ``;
   }
 });
+
+btnLoan.addEventListener(`click`, (e) => {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => {
+      return mov >= amount * 0.1;
+    })
+  ) {
+    // Add movement
+    currentAccount.movements.push(amount);
+    updateUI(currentAccount);
+    inputLoanAmount.value = ``;
+  }
+});
+
+// Seperate callback
+const deposit = (mov) => {
+  return mov > 0;
+};
+
+const isThereAnyDeposit = movements.some(deposit);
+console.log(isThereAnyDeposit);
+
+// sort() method
