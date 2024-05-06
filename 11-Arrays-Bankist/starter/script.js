@@ -535,5 +535,3 @@ const deposit = (mov) => {
 
 const isThereAnyDeposit = movements.some(deposit);
 console.log(isThereAnyDeposit);
-
-// sort() method
