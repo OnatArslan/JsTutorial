@@ -375,9 +375,12 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // Display Movements function ---------------------------------------------------------
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = ``; // First we get rid of html content
-  movements.forEach(function (mov, index) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, index) {
     const type = mov > 0 ? `deposit` : `withdrawal`;
     const html = `
         <div class="movements__row">
@@ -528,6 +531,15 @@ btnLoan.addEventListener(`click`, (e) => {
   }
 });
 
+// Sort button eventListener
+let sorted = false;
+
+btnSort.addEventListener(`click`, (e) => {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 // Seperate callback
 const deposit = (mov) => {
   return mov > 0;
@@ -535,3 +547,33 @@ const deposit = (mov) => {
 
 const isThereAnyDeposit = movements.some(deposit);
 console.log(isThereAnyDeposit);
+
+// SORT() METHOD _______------------________________
+
+// With Strings they are work fine
+const owners = [`Jonas`, `Zach`, `Adam`, `Martha`];
+owners.sort();
+console.log(owners);
+
+// With Numbers
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+movements.sort();
+console.log(movements); // [-130, -400, -650, 1300, 200, 3000, 450, 70] This is wrong
+
+// If we return < 0, A, B
+// Else we return >0 B, A
+movements.sort((a, b) => a - b); // ascending order
+movements.sort((a, b) => b - a); // descending order
+console.log(movements);
+
+// MORE WAYS OF CREATING AND FILLING ARRAYS
+
+// old syntax const arr = [1,2,3,4,5]
+// old syntax const arr = new Array(1, 2, 3, 4, 5)
+
+const x = new Array(7);
+console.log(x); // [empty x 7]
+
+// but if we use fill() method
+x.fill(9);
+console.log(x); // [9, 9, 9, 9, 9, 9, 9]
