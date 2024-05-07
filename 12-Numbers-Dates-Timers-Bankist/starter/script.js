@@ -81,20 +81,32 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const date = new Date(acc.movementsDates[i]);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hour = date.getHours();
+    const min = date.getMinutes();
+    const displayDate = `${String(day).length === 2 ? `` : 0}${day}/${
+      String(month).length === 2 ? `` : 0
+    }${month}/${year}`;
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+    <div class="movements__date">${displayDate}</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +116,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +138,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -142,7 +154,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -154,6 +166,20 @@ const updateUI = function (acc) {
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+// // FAKE ALWAYS LOGGED IN
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
+
+const now = new Date();
+const day = now.getDate();
+const month = now.getMonth() + 1;
+const year = now.getFullYear();
+const hour = now.getHours();
+const min = now.getMinutes();
+labelDate.textContent = `0${day}/0${month}/${year}/, ${
+  String(hour).length === 2 ? `` : 0
+}${hour}:${String(min).length === 2 ? `` : 0}${min}`; // As of Tue May 07 2024 10:33:04 GMT+0300 (GMT+03:00)
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -195,9 +221,11 @@ btnTransfer.addEventListener('click', function (e) {
     receiverAcc?.username !== currentAccount.username
   ) {
     // Doing the transfer
+    const transferDate = new Date();
     currentAccount.movements.push(-amount);
+    currentAccount.movementsDates.push(transferDate);
     receiverAcc.movements.push(amount);
-
+    receiverAcc.movementsDates.push(transferDate);
     // Update UI
     updateUI(currentAccount);
   }
@@ -206,12 +234,13 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
-
+    const loanDate = new Date();
+    currentAccount.movementsDates.push(loanDate);
     // Update UI
     updateUI(currentAccount);
   }
@@ -244,10 +273,104 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+// Numbers -----------------
+//Parsing numbers ------------
+console.log(Number.parseInt(`23.034`, 10)); // convert str 23.034 to 10 based integer ==> 23
+console.log(Number.parseFloat(`23.034`, 10)); // convert str 23.034 to 10 based float ==> 23.034
+
+// isNaN() function
+console.log(Number.isNaN(+`20X`));
+
+// Math and Rounding ------------------------------------
+
+console.log(Math.sqrt(25)); // 5
+
+console.log(Math.max(1, 67, 54, 22)); // return biggest number => 67
+console.log(Math.min(1, 56, -111)); // return smallest number => -111
+
+console.log(Math.PI); // 3.141592653589793
+
+// PI * r**2
+console.log(Math.PI * Number.parseFloat(`10px`) ** 2); // 314.1592653589793
+
+// Math.random()
+console.log(Math.random()); // Return random number between 0 and 1
+
+console.log(Math.trunc(Math.random() * 20 + 1)); // Return random integers between 0 and 20
+
+// create randomInt between min and max
+const randomInt = (min, max) => {
+  return Math.trunc(Math.random() * (max - min) + 1 + min);
+};
+
+// Raounding integers
+console.log(Math.trunc(23.3)); // removes decimal part
+
+console.log(Math.round(23.3)); // return 23 yuvarla
+
+console.log(Math.round(23.7)); // return 24
+
+console.log(Math.ceil(23.1)); // 24 because Tavandaki degeri alir tabani degil
+
+// Remiander operator
+// labelBalance.addEventListener(`click`, () => {
+//   [...document.querySelectorAll(`.movements__row`)].forEach((item, index) => {
+//     if (index % 2 === 0) {
+//       item.style.backgroundColor = `orangered`;
+//     }
+//     if (index % 3 === 0) {
+//       item.style.backgroundColor = `lightblue`;
+//     }
+//   });
+// });
+
+// Numeric Seperators
+
+// 287,460,000,000
+const diameter = 287_460_000_000;
+console.log(diameter); // 287460000000
+
+const priceCents = 345_99;
+console.log(priceCents); // 34599
+
+const transferFee = 15_00;
+
+const transferFee2 = 1_500;
+
+const PI = 3.14115;
+console.log(PI);
+
+// CREATING DATES ---------------------------------------------------------------------
+
+// const now = new Date();
+// console.log(now); // Tue May 07 2024 10:17:03 GMT+0300 (GMT+03:00)
+
+// console.log(new Date(`May 07 2024 10:16:14`));
+
+// console.log(new Date(`December 24, 2015`)); // Thu Dec 24 2015 00:00:00 GMT+0200 (GMT+03:00)
+
+// console.log(new Date('2019-11-18T21:31:17.178Z'));
+
+// console.log(new Date(2037, 10, 19, 15, 23, 5)); // yil ay gun saat dakika saniye
+
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+
+console.log(future.getFullYear()); // 2037
+console.log(future.getMonth()); // 10 but 0 based this is 11. month
+console.log(future.getDay()); // 4 4. day of week
+
+console.log(future.toISOString()); // 2037-11-19T12:23:00.000Z
+
+console.log(Date.now()); // 1715066954153
+
+future.setFullYear(2040);
+console.log(future);
