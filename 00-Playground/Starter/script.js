@@ -11,6 +11,7 @@ const name = `Onat`,
   name2 = `rugi`,
   name3 = `Coni`,
   name12 = "konata";
+
 // but to me use the normal version like below
 const name4 = `Oni`;
 const name5 = `Rugi`;
