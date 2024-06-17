@@ -112,3 +112,4 @@ const whereAmI = async function (country) {
 
 whereAmI(`portugal`);
 console.log(`hello madifaki`);
+// This is end of the async await section
