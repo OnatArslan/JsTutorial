@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -251,3 +251,127 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+// Checks if 23 is strictly equal to 23.0 - both are numbers and equal, so it returns true
+console.log(23 === 23.0);
+
+// Adds 0.1 and 0.2 in floating point arithmetic, resulting in a precision issue common in many programming languages
+console.log(0.1 + 0.2); // Outputs: 0.30000000000000004
+
+// Converts a string '23' to a number using the Number constructor - not recommended due to less clarity
+console.log(Number(`23`));
+
+// Converts a string '23' to a number using the unary plus operator - preferred for its brevity and clarity
+console.log(+`23`);
+
+// Parses an integer from the string '23px' ignoring non-numeric characters after the number
+console.log(Number.parseInt(`23px`, 10));
+
+// Parses an integer from the string '432e' based on the decimal system, ignoring the trailing non-numeric character
+console.log(Number.parseInt(`432e`, 10));
+
+// Checks if the string '22313' is NaN (Not-a-Number) - returns false because '22313' is a valid number in string form
+console.log(Number.isNaN(`22313`));
+
+// Checks if converting the string 'adnan' to a number results in NaN - returns true because 'adnan' cannot be converted to a number
+console.log(Number.isNaN(+`adnan`));
+
+// Checks if 20 is a finite number - returns true because 20 is a finite number
+console.log(Number.isFinite(20));
+
+// Checks if the string '20' is a finite number - returns false because '20' is a string, not a number
+console.log(Number.isFinite(`20`));
+
+// More mathematical operations
+
+console.log(Math.sqrt(25));
+
+console.log(Math.max(6, 19, 23));
+
+console.log(Math.min(6, 19, 3));
+
+console.log(Math.PI);
+
+const randomInt = (min, max) => {
+  return Math.trunc(Math.random() * (max - min) + 1) + min;
+};
+
+console.log(randomInt(10, 14));
+
+// Rounding integers
+console.log(Math.trunc(23.3)); // Remove float part
+
+console.log(Math.round(23.8)); // Round to nearest integer
+
+console.log(Math.ceil(23.1)); //
+
+console.log(Math.floor(23.9)); // Remove decimal part
+
+// Reminder operator
+
+console.log(5 % 2);
+
+const isEven = num => {
+  return num % 2 === 0;
+};
+
+console.log(isEven(13));
+
+// start and end both included
+const pythonRangeFunction = (start, end, jump = 1) => {
+  const returnThisArray = [];
+  for (let i = start; i <= end; i += jump) {
+    returnThisArray.push(i);
+  }
+  return returnThisArray;
+};
+
+console.log(pythonRangeFunction(12, 91, 10));
+
+// CREATING DATES -------------------------------------------------------------
+
+// Four ways of creating dates
+const now = new Date();
+console.log(now);
+
+console.log(new Date(`Mon Jun 17 2024`));
+
+console.log(new Date(account1.movementsDates[1]));
+
+console.log(new Date(2024, 10, 21));
+console.log(`-------------------------------------------------`);
+console.log(`-------------------------------------------------`);
+console.log(`-------------------------------------------------`);
+// Working with dates
+const future = new Date(2024, 10, 21, 12, 23);
+console.log(future);
+
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+
+console.log(future.toISOString());
+console.log(future.toDateString());
+
+console.log(future.getTime());
+
+const currentTime = new Date(Date.now());
+console.log(currentTime);
+
+// TIMERS --------------------------
+
+// This is a async function
+const ingredents = [`olives`, `pepperoni`, `garlic`, `tomato`, `souce`];
+const pizzaTimer = setTimeout(
+  (...ings) => {
+    console.log(`Here is your pizza with ${ings}`);
+  },
+  3000,
+  ingredents
+);
+console.log(`Waiting for pizza....`);
+
+if (ingredents.includes(`garlic`)) {
+  clearTimeout(pizzaTimer);
+}
